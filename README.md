@@ -1,4 +1,4 @@
-# POCO F7 (onyx) Xiaomi.eu Wi-Fi 7 + 6 GHz
+# POCO F7 (onyx) Xiaomi.eu Wi-Fi 7 + 6 GHz Hotspot
 
 Exact-build Magisk module pack for **POCO F7 (onyx)** running:
 

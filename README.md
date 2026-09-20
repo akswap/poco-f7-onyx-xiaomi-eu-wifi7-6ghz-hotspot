@@ -19,15 +19,15 @@ Verified on the target build:
 - 6 GHz scanning and connection
 - 320 MHz 6 GHz hotspot
 - Qualcomm WCN7750 support
-- Automatic 6 GHz hotspot TX-power recovery
-- Camera and hotspot working together with the included build-matched components
+- Forced 24 dBm hotspot TX power
+- Camera and hotspot working normally
 
 Real-device verification showed:
 
 - `wifiStandard=8` / 802.11be
 - 6 GHz hotspot on channel 133 (6615 MHz)
 - 320 MHz channel width
-- 24 dBm reported after TX-power recovery
+- `txpower 24.00 dBm`
 - Intel BE200 client connected as 802.11be
 
 ## Downloads and installation order
@@ -89,7 +89,7 @@ The selected 6 GHz channel can vary with ACS, country configuration, congestion,
 
 ## Troubleshooting
 
-### Hotspot starts at 8 dBm
+### Hotspot does not show 24 dBm
 
 Check:
 
@@ -97,17 +97,10 @@ Check:
 iw dev wlan1 info
 ```
 
-The included module should restore automatic power after hotspot startup. For a one-session test:
+The module is designed to force hotspot TX power to **24 dBm** after startup. If it still reports 8 dBm, reboot once and verify that both modules are enabled. Do not install another TX-power module alongside this pack.
 
-```sh
-iw dev wlan1 set txpower auto
-```
-
-Do not force a fixed transmit power. Regulatory and SAR limits still apply.
-
-### Camera closes after a few seconds
-
-This pack is for the exact Xiaomi.eu build above. Do not mix hostapd or Wi-Fi shared libraries from crDroid, Infinity-X, another Xiaomi.eu release, or another vendor build. If the camera fails, disable both modules and reboot.
+> [!WARNING]
+> Forced TX power may conflict with regional regulations, firmware limits, SAR/thermal policies, or local 6 GHz rules. Use only where permitted and at your own risk.
 
 ### 6 GHz is not visible
 
@@ -129,7 +122,8 @@ cmd wifi list-scan-results | awk 'NR==1 || ($2 >= 5925 && $2 <= 7125)'
 
 ## Important notes
 
-- 6 GHz availability and transmit power are controlled by local regulations, firmware, SAR policy, and the access point.
+- This Xiaomi.eu package did **not** exhibit the camera-closing issue encountered during unrelated ROM testing.
+- 6 GHz availability and legal transmit power depend on local regulations, firmware, SAR policy, and the access point.
 - Reported PHY link speed is not the same as real TCP/UDP throughput.
 - Binary components remain property of their respective owners. This repository only documents and packages the tested device-specific modification.
 - Flashing system modifications is at your own risk.
